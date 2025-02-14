@@ -1,7 +1,12 @@
 backend:
   name: github
-  repo: your-github-username/aesthetics-website
+  repo: BlazedToad/signature-aesthetics
   branch: main
+  auth_endpoint: https://api.netlify.com/auth/done
+  open_authoring: true
+
+site_url: "https://signature-aesthetics.vercel.app/"
+display_url: "https://signature-aesthetics.vercel.app/"
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
