@@ -4,53 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <style>
+        /* 🔥 Hide everything by default */
+        body { display: none; }
+    </style>
 </head>
 <body>
     <h2>Welcome to the Admin Dashboard</h2>
     <button id="logoutBtn">Logout</button>
 
     <script type="module">
+        import { loadConfig } from "../config.js";  // ✅ Import loadConfig function
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-        // ✅ Firebase Configuration (Ensure it's initialized)
-        const firebaseConfig = {
-            apiKey: "AIzaSyDQP5qixI-UfTROYCLCNdLHibfsH49Q6Sg",
-            authDomain: "signature-aesthetics.firebaseapp.com",
-            projectId: "signature-aesthetics",
-            storageBucket: "signature-aesthetics.appspot.com",
-            messagingSenderId: "224020859017",
-            appId: "1:224020859017:web:8e3533d1123a4adf669e58"
-        };
+        // ✅ Load Firebase Config Before Initializing
+        loadConfig().then(({ firebaseConfig, allowedEmail }) => {
+            console.log("✅ Firebase Config Loaded Successfully:", firebaseConfig);
 
-        // ✅ Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const allowedEmail = "stephaniehallx@gmail.com";  // 🔥 Change this if needed
+            // ✅ Initialize Firebase AFTER config.json is loaded
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
 
-        // ✅ Check if the user is logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                if (user.email !== allowedEmail) {
-                    console.error("❌ Unauthorized access attempt by:", user.email);
-                    alert("Access Denied: You are not authorized to view this page.");
-                    signOut(auth).then(() => {
-                        window.location.href = "/admin/index.html";  // Redirect to login
-                    });
-                } else {
+            // ✅ Check if the user is logged in and authorized
+            onAuthStateChanged(auth, (user) => {
+                if (user && user.email === allowedEmail) {
                     console.log("✅ Access granted:", user.email);
+                    document.body.style.display = "block";  // ✅ Show dashboard only after verification
+                } else {
+                    console.error("❌ Unauthorized access attempt or no user logged in.");
+                    window.location.href = "/admin/index.html";  // ✅ Redirect immediately
                 }
-            } else {
-                console.error("❌ No user logged in, redirecting to login...");
-                window.location.href = "/admin/index.html";  // Redirect if not logged in
-            }
-        });
-
-        // ✅ Logout Button Functionality
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            signOut(auth).then(() => {
-                window.location.href = "/admin/index.html";  // Redirect to login after logout
             });
+
+            // ✅ Logout Button
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                signOut(auth).then(() => {
+                    window.location.href = "/admin/index.html";  // ✅ Redirect to login after logout
+                });
+            });
+        }).catch(error => {
+            console.error("❌ Failed to load Firebase Config:", error);
         });
     </script>
 </body>

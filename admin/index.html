@@ -11,45 +11,40 @@
 
     <!-- Firebase Authentication -->
     <script type="module">
-        // ✅ Import Firebase Modules
+        import { loadConfig } from "../config.js";  // ✅ Import loadConfig instead of raw values
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-        // ✅ Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDQP5qixI-UfTROYCLCNdLHibfsH49Q6Sg",
-            authDomain: "signature-aesthetics.firebaseapp.com",
-            projectId: "signature-aesthetics",
-            storageBucket: "signature-aesthetics.appspot.com",  // 🔥 Fixed typo
-            messagingSenderId: "224020859017",
-            appId: "1:224020859017:web:8e3533d1123a4adf669e58"
-        };
+        // ✅ Ensure Firebase Loads After `config.json` is Ready
+        loadConfig().then(({ firebaseConfig, allowedEmail }) => {
+            console.log("✅ Firebase Config Loaded Successfully:", firebaseConfig);
 
-        // ✅ Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+            // ✅ Initialize Firebase AFTER config.json is loaded
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const provider = new GoogleAuthProvider();
 
-        // ✅ Google Login Function
-        document.getElementById("googleLoginBtn").addEventListener("click", () => {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    const user = result.user;
-                    const allowedEmail = "stephaniehallx@gmail.com";
-
-                    if (user.email === allowedEmail) {
-                        console.log("Logged in as:", result.user.email);
-                        window.location.href = "/admin/dashboard.html";  // ✅ Redirect to admin page
-                    } else {
-                        console.error("❌ Unauthorized user:", user.email);
-                        alert("Access Denied: You are not authorized to log in.");
-                        signOut(auth);
-                        window.location.href = "index.html"; // ✅ Redirect to login page
-                    }
-                })
-                .catch((error) => {
-                    console.error("Login error:", error.message);
-                });
+            // ✅ Add Login Button Event AFTER Firebase is Ready
+            document.getElementById("googleLoginBtn").addEventListener("click", () => {
+                signInWithPopup(auth, provider)
+                    .then((result) => {
+                        const user = result.user;
+                        if (user.email === allowedEmail) {
+                            console.log("✅ Logged in as:", user.email);
+                            window.location.href = "/admin/dashboard.html";  // ✅ Redirect to admin page
+                        } else {
+                            console.error("❌ Unauthorized user:", user.email);
+                            alert("Access Denied: You are not authorized to log in.");
+                            signOut(auth);
+                            window.location.href = "index.html"; // ✅ Redirect to login page
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("❌ Login error:", error.message);
+                    });
+            });
+        }).catch(error => {
+            console.error("❌ Failed to load Firebase Config:", error);
         });
     </script>
 </body>

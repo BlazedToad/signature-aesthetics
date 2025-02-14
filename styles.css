@@ -1,13 +1,261 @@
+/* ✅ Load Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
+
+/* ✅ General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    color: #5a3722;
+    background: linear-gradient(to bottom, #f5efe6, #e6d7c3);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* ✅ Section Styling */
+.section {
+    padding: 80px 20px;
     text-align: center;
 }
-h2 {
-    margin-top: 20px;
+
+.bg-light {
+    background-color: #ede0d4;
 }
-.service {
-    margin: 10px;
-    padding: 15px;
-    border: 1px solid #ccc;
+
+/* ✅ Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #f5efe6, #d7c4b7);
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* ✅ Soft Overlay Effect for Depth */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+}
+
+/* ✅ Ensure Text is Above Overlay */
+.hero .logo-container,
+.hero .hero-buttons {
+    position: relative;
+    z-index: 2;
+}
+
+/* ✅ Logo Styling */
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* ✅ "SA" Large Logo */
+.sa {
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    font-weight: 600;
+    letter-spacing: 6px;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ✅ "Signature Aesthetics" */
+.brand-name {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ✅ Hero Buttons */
+.hero-buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ✅ CTA Buttons */
+.cta-button, .cta-outline {
     display: inline-block;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+/* ✅ Solid Button */
+.cta-button {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ✅ Outlined Button */
+.cta-outline {
+    border: 2px solid white;
+    color: white;
+}
+
+.cta-outline:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Circular Profile Image (small) */
+.profile-img {
+    width: 100px; /* Smaller size */
+    height: 100px;
+    border-radius: 50%; /* Circular */
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #e63946;
+}
+
+/* ✅ Services Section */
+.services-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.service-card h3 {
+    color: #8b5e3c;
+}
+
+/* ✅ Testimonials Section */
+#testimonials {
+    text-align: center;
+    background: white;
+    padding: 60px 20px;
+}
+
+/* ✅ Swiper Carousel */
+.swiper {
+    width: 80%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding-bottom: 40px;
+}
+
+/* ✅ Testimonial Cards */
+.testimonial {
+    background: #f5efe6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* ✅ Testimonial Image */
+.testimonial img {
+    width: 45%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 3px solid #e63946;
+}
+
+.testimonial p {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #5a3722;
+}
+
+.testimonial .client-name {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ✅ Swiper Navigation */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #8b5e3c;
+}
+
+/* ✅ Pricing Section */
+#pricing {
+    text-align: center;
+    background: #f5efe6;
+    padding: 60px 20px;
+}
+
+.pricing-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.service {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+}
+
+.service h3 {
+    color: #8b5e3c;
+    font-size: 1.3rem;
+}
+
+.service p {
+    color: #5a3722;
+}
+
+.service strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #70452d;
+}
+
+/* ✅ Footer */
+footer {
+    background: #70452d;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.social-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: opacity 0.3s;
+}
+
+.social-links a:hover {
+    opacity: 0.8;
 }

@@ -3,35 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetics Business</title>
+    <title>Signature Aesthetics</title>
+
+    <!-- ✅ Link to Your Custom Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    
+    <!-- ✅ FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <style>
+        /* Background Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 1s ease-out; }
+    </style>
 </head>
 <body>
 
-    <h1>Welcome to Our Aesthetics Clinic</h1>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials">
-        <h2>Customer Testimonials</h2>
-        <div class="swiper-container testimonial-carousel">
-            <div class="swiper-wrapper" id="testimonial-container">
-                <!-- Testimonials will load here dynamically -->
-            </div>
-            <div class="swiper-pagination"></div>
+    <!-- ✅ Hero Section with Matching Logo Styling -->
+    <section class="hero">
+        <div class="logo-container">
+            <span class="sa">SA</span>
+            <p class="brand-name">Signature Aesthetics</p>
+        </div>
+        <div class="hero-buttons">
+            <a href="#services" class="cta-button">Explore Treatments</a>
+            <a href="YOUR_BOOKING_LINK" class="cta-outline">Book Now</a>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing">
-        <h2>Our Services & Prices</h2>
-        <div id="pricing-container">
-            <!-- Prices will load here dynamically -->
+<!-- ✅ About Section -->
+<section id="about" class="section">
+    <div class="about-container">
+        <!-- Circular Image -->
+        <img src="images/steph.jpg" alt="Profile Image" class="profile-img">
+        
+        <!-- About Me Content -->
+        <h2>About Me</h2>
+        <p>
+            I am the owner and practitioner here at Signature. I have been injecting for over 6 years and I am always learning and evolving Signature to stay on top of my game.
+        </p>
+        <p>
+            I attend multiple masterclasses a year to ensure I provide the best service and offer advanced premium products. If I don't feel a treatment is right for you, I will not carry it out and will offer a suitable alternative or signpost you to different services. I look forward to meeting and treating all of your beautiful faces.
+        </p>
+    </div>
+</section>
+
+<section id="testimonials" class="section">
+    <h2>Client Testimonials</h2>
+    <div class="swiper testimonial-carousel">
+        <div class="swiper-wrapper" id="testimonial-container">
+            <!-- Testimonials will be dynamically inserted here -->
         </div>
+        <!-- ✅ Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- ✅ Navigation -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</section>
+
+    
+
+
+<!-- ✅ Treatments Section -->
+<section id="treatments" class="section">
+    <h2>Our Treatments</h2>
+    <div id="treatments-container" class="services-grid">
+        <!-- Treatments will be dynamically inserted here -->
+    </div>
+</section>
+
+    <!-- ✅ Booking Section -->
+    <section id="booking" class="section">
+        <h2>Book Your Appointment</h2>
+        <p>Ready to enhance your beauty? Schedule a consultation today.</p>
+        <a href="YOUR_BOOKING_LINK" class="cta-button">Book Now</a>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+    <!-- ✅ Footer -->
+    <footer>
+        <p>Follow us for updates:</p>
+        <div class="social-links">
+            <a href="YOUR_INSTAGRAM">Instagram</a>
+            <a href="YOUR_FACEBOOK">Facebook</a>
+        </div>
+        <p>&copy; 2024 Signature Aesthetics. All rights reserved.</p>
+    </footer>
 
+        <!-- ✅ Include SwiperJS for Carousel -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+        <script src="scripts.js"></script>
 </body>
 </html>
