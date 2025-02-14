@@ -1,0 +1,14 @@
+{
+    "services": [
+        {
+            "name": "Lip Filler 0.5ml",
+            "price": "£150",
+            "description": "Enhance your lips with a subtle, natural look."
+        },
+        {
+            "name": "Lip Filler 1ml",
+            "price": "£250",
+            "description": "Fuller lips with a beautifully sculpted shape."
+        }
+    ]
+}
