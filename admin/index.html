@@ -6,18 +6,20 @@
     <title>Admin Panel</title>
 </head>
 <body>
-    <!-- CMS Script: Ensure this is properly loaded -->
-    <script src="https://unpkg.com/netlify-cms-app@2.14.26/dist/netlify-cms.js"></script>
+    <!-- Load Netlify CMS -->
+    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 
+
+    <!-- Initialize CMS After the Page Fully Loads -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        window.addEventListener("load", function () {
             if (typeof CMS !== "undefined") {
                 CMS.init({ config: "/admin/config.yml" });
             } else {
-                console.error("CMS is not defined. The script may not have loaded correctly.");
+                console.error("❌ CMS is not defined. Check if the Netlify CMS script loaded.");
             }
         });
     </script>
-    
+
 </body>
 </html>
