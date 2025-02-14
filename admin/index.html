@@ -11,8 +11,13 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            CMS.init({ config: "/admin/config.yml" });
+            if (typeof CMS !== "undefined") {
+                CMS.init({ config: "/admin/config.yml" });
+            } else {
+                console.error("CMS is not defined. The script may not have loaded correctly.");
+            }
         });
     </script>
+    
 </body>
 </html>
