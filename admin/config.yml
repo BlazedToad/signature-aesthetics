@@ -22,7 +22,13 @@ collections:
     folder: "content"
     create: false
     slug: "pricing"
+    editor:
+      preview: false
     fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        default: "Pricing List"
       - label: "Services"
         name: "services"
         widget: "list"
