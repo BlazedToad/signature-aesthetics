@@ -3,8 +3,6 @@ backend:
   repo: BlazedToad/signature-aesthetics
   branch: main
   auth_endpoint: https://api.netlify.com/auth/done
-  open_authoring: true
-  publish_mode: editorial_workflow
 
 site_url: "https://signature-aesthetics.vercel.app/"
 display_url: "https://signature-aesthetics.vercel.app/"
