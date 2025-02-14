@@ -10,26 +10,46 @@
     <button id="logoutBtn">Logout</button>
 
     <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-        // ✅ Firebase Authentication
-        const auth = getAuth();
+        // ✅ Firebase Configuration (Ensure it's initialized)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDQP5qixI-UfTROYCLCNdLHibfsH49Q6Sg",
+            authDomain: "signature-aesthetics.firebaseapp.com",
+            projectId: "signature-aesthetics",
+            storageBucket: "signature-aesthetics.appspot.com",
+            messagingSenderId: "224020859017",
+            appId: "1:224020859017:web:8e3533d1123a4adf669e58"
+        };
 
-        // ✅ Protect the Admin Panel (Only Allow Your Sister)
-        const allowedEmail = "stephaniehallx@gmail.com";  // 🔥 Change this
+        // ✅ Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const allowedEmail = "stephaniehallx@gmail.com";  // 🔥 Change this if needed
 
+        // ✅ Check if the user is logged in
         onAuthStateChanged(auth, (user) => {
-            if (!user || user.email !== allowedEmail) {
-                console.error("❌ Unauthorized access attempt");
-                alert("Access Denied: You are not authorized to view this page.");
-                window.location.href = "/admin/index.html";
+            if (user) {
+                if (user.email !== allowedEmail) {
+                    console.error("❌ Unauthorized access attempt by:", user.email);
+                    alert("Access Denied: You are not authorized to view this page.");
+                    signOut(auth).then(() => {
+                        window.location.href = "/admin/index.html";  // Redirect to login
+                    });
+                } else {
+                    console.log("✅ Access granted:", user.email);
+                }
+            } else {
+                console.error("❌ No user logged in, redirecting to login...");
+                window.location.href = "/admin/index.html";  // Redirect if not logged in
             }
         });
 
-        // ✅ Logout Button
+        // ✅ Logout Button Functionality
         document.getElementById("logoutBtn").addEventListener("click", () => {
             signOut(auth).then(() => {
-                window.location.href = "/admin/index.html";
+                window.location.href = "/admin/index.html";  // Redirect to login after logout
             });
         });
     </script>
