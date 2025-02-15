@@ -1,0 +1,10 @@
+[
+    { "name": "Syringe", "icon": "fa-solid fa-syringe" },
+    { "name": "Stethoscope", "icon": "fa-solid fa-stethoscope" },
+    { "name": "Medical Cross", "icon": "fa-solid fa-notes-medical" },
+    { "name": "Lip Filler", "icon": "/content/lips.png" },
+    { "name": "Facial", "icon": "/content/facial.png" },
+    { "name": "Skin Cream", "icon": "/content/cream.png" },
+    { "name": "Hydration", "icon": "/content/hydrate.png" },
+    { "name": "Dermal Filler", "icon": "/content/dermal-filler.png" }
+]

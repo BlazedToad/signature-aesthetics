@@ -343,6 +343,12 @@ footer {
     color: #5a3722;
 }
 
+.svg-icon {
+    width: 64px;
+    height: 64px;
+}
+
+
 /* ✅ Mobile Optimization */
 @media (max-width: 768px) {
     #specials h2 {

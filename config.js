@@ -3,13 +3,19 @@ const isLocal = window.location.hostname === "localhost";
 // ✅ Function to Load Config Dynamically
 export const loadConfig = async () => {
     let firebaseConfig = {};
-    let allowedEmail = "";
+    let allowedEmails = [];  // Initialize as an empty array
 
     if (isLocal) {
         try {
             const response = await fetch("/config.json");
             if (!response.ok) throw new Error("Failed to fetch config.json");
             const config = await response.json();
+
+            // Retrieve allowed emails from the environment variables
+            allowedEmails = [
+                config.ADMIN_EMAIL,  // Add the admin email
+                config.USER_EMAIL    // Add the second user email
+            ];
 
             firebaseConfig = {
                 apiKey: config.FIREBASE_API_KEY,
@@ -19,7 +25,7 @@ export const loadConfig = async () => {
                 messagingSenderId: config.FIREBASE_MESSAGING_SENDER_ID,
                 appId: config.FIREBASE_APP_ID
             };
-            allowedEmail = config.ADMIN_EMAIL;
+            allowedEmails = allowedEmails;  // Fallback to an empty array
             console.log("✅ Loaded local Firebase config:", firebaseConfig);
         } catch (error) {
             console.error("❌ Error loading local config.json:", error);
@@ -43,13 +49,14 @@ export const loadConfig = async () => {
                 appId: config.firebaseConfig.appId
             };
 
-            allowedEmail = config.allowedEmail;
-
+            // Deserialize allowedEmails from environment variable in Vercel
+            allowedEmails = JSON.parse(process.env.ALLOWED_EMAILS || "[]");  // Default to an empty array if undefined
+            
             console.log("✅ Loaded Firebase config securely from Vercel:", firebaseConfig);
         } catch (error) {
             console.error("❌ Error loading Firebase config:", error);
         }
     }
 
-    return { firebaseConfig, allowedEmail };
+    return { firebaseConfig, allowedEmails };
 };

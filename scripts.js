@@ -15,7 +15,7 @@ export let storage; // 🔥 Add Storage
 // ✅ Initialize Firebase AFTER Config is Loaded
 export async function initializeFirebase() {
     try {
-        const { firebaseConfig, allowedEmail } = await loadConfig();
+        const { firebaseConfig, allowedEmails } = await loadConfig();
 
         // ✅ Initialize Firebase
         app = initializeApp(firebaseConfig);
@@ -26,7 +26,7 @@ export async function initializeFirebase() {
 
         console.log("✅ Firebase Initialized Successfully!");
         console.log("🔥 Firebase Storage Bucket:", storage._bucket || "Bucket not found");
-        return { auth, db, provider, allowedEmail };
+        return { auth, db, provider, allowedEmails };
 
     } catch (error) {
         console.error("❌ Failed to load Firebase Config:", error);
@@ -36,11 +36,12 @@ export async function initializeFirebase() {
 // ✅ Login Function
 export async function loginWithGoogle() {
     try {
-        const { allowedEmail } = await initializeFirebase();
+        const { allowedEmails } = await initializeFirebase();
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
 
-        if (user.email === allowedEmail) {
+        // ✅ Check if the user's email is in the allowedEmails list
+        if (allowedEmails.includes(user.email)) {
             console.log("✅ Logged in as:", user.email);
             window.location.href = "/admin/dashboard.html"; // ✅ Redirect to dashboard
         } else {
@@ -54,12 +55,13 @@ export async function loginWithGoogle() {
     }
 }
 
+
 // ✅ Logout Function
 export async function logout() {
     try {
         await signOut(auth);
         console.log("✅ Logged out");
-        window.location.href = "/admin/index.html"; // ✅ Redirect to login page
+        window.location.href = "/index.html"; // ✅ Redirect to login page
     } catch (error) {
         console.error("❌ Logout error:", error.message);
     }
@@ -138,8 +140,25 @@ async function loadTreatments() {
             const treatmentCard = document.createElement("div");
             treatmentCard.classList.add("service-card");
 
+            let iconHTML = '';
+
+            // ✅ Check if the icon is Font Awesome (starts with 'fa-')
+            if (treatment.icon && treatment.icon.includes("fa-")) {
+                iconHTML = `<i class="fa-solid ${treatment.icon} treatment-icon"></i>`;
+            }
+            // ✅ Check if the icon is an SVG
+            else if (treatment.icon && treatment.icon.endsWith(".svg")) {
+                const svgPath = `${treatment.icon}`;
+                iconHTML = `<img src="${svgPath}" alt="${treatment.name} icon" class="svg-icon">`;
+            }
+            // ✅ Check if the icon is a PNG
+            else if (treatment.icon && treatment.icon.endsWith(".png")) {
+                const pngPath = `${treatment.icon}`;
+                iconHTML = `<img src="${pngPath}" alt="${treatment.name} icon" class="svg-icon">`;
+            }
+
             treatmentCard.innerHTML = `
-                <i class="fa-solid ${treatment.icon} treatment-icon"></i>
+                ${iconHTML}  <!-- Render the appropriate icon -->
                 <h3>${treatment.name}</h3>
                 <p>${treatment.description}</p>
                 <strong>${treatment.price}</strong>
@@ -151,6 +170,7 @@ async function loadTreatments() {
         console.error("❌ Error loading treatments:", error);
     }
 }
+
 
 // ✅ Load Testimonials from Firestore
 async function loadTestimonials() {
@@ -193,3 +213,4 @@ async function loadTestimonials() {
         console.error("❌ Error loading testimonials:", error);
     }
 }
+

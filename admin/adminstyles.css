@@ -43,7 +43,7 @@
 
 /* ✅ Card Styling */
 .item-card {
-    background: #fff;
+    background: #f5efe6;
     border-radius: 10px;
     padding: 24px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
@@ -114,13 +114,40 @@
     font-weight: bold;
 }
 
+/* ✅ Delete Button - Strong but Refined */
 .delete-btn {
-    background: #c94c4c;
+    background: #8b5e3c;
+    color: white;
+    font-size: 0.9rem;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .save-btn {
-    background: #4caf50;
+    background: white; /* Matches theme */
+    color: #8b5e3c;
+    font-size: 0.9rem;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #8b5e3c; /* ✅ Corrected border */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
+.save-btn:hover {
+    background: #8b5e3c;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 
 .edit-btn:hover, .save-btn:hover, .delete-btn:hover {
     opacity: 0.9;
@@ -132,13 +159,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #8b5e3c; /* Matches Admin Theme */
-    color: white;
+    background: transparent; /* Matches Admin Theme */
+    color: #8b5e3c;
     font-size: 1rem;
     font-weight: bold;
     padding: 12px 18px;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #8b5e3c; /* ✅ Corrected border */
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -147,9 +174,40 @@
 
 .add-button:hover {
     background: #70452d;
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* ✅ Dropdown Styling */
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+}
+
+/* ✅ Icon Preview */
+.icon-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    height: 40px;
+}
+
+.icon-preview i {
+    font-size: 1.5rem;
+    color: #8b5e3c;
+}
+
+.svg-icon {
+    width: 32px;
+    height: 32px;
+}
+
 
 /* ✅ Mobile Optimization */
 @media (max-width: 768px) {
