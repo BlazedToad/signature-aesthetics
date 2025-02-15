@@ -1,14 +1,22 @@
-export default function handler(req, res) {
-    // ✅ Allow requests only from your frontend domain
-    const allowedOrigins = ["https://signature-aesthetics.vercel.app/"];
+module.exports = (req, res) => {
+    const allowedOrigins = [
+        "https://signature-aesthetics.vercel.app/",
+        "https://signature-aesthetics.vercel.app/admin",
+        "https://signature-aesthetics.vercel.app/admin/dashboard.html",
+        "http://localhost:3000", // Allow local development
+        "http://localhost:5000"  // If using a different local server
+    ];
 
     const origin = req.headers.origin || req.headers.referer;
 
-    if (!allowedOrigins.includes(origin)) {
-        return res.status(403).json({ error: "Forbidden: You are not allowed to access this API." });
+    if (!allowedOrigins.some((allowed) => origin && origin.startsWith(allowed))) {
+        return res.status(403).json({ error: "❌ CORS Not Allowed for this origin." });
     }
 
-    // ✅ Send Firebase Config only to allowed origins
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET");
+
     res.status(200).json({
         firebaseConfig: {
             apiKey: process.env.FIREBASE_API_KEY,
@@ -20,4 +28,4 @@ export default function handler(req, res) {
         },
         allowedEmail: process.env.ADMIN_EMAIL
     });
-}
+};
