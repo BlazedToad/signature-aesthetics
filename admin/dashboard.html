@@ -4,48 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <style>
-        /* 🔥 Hide everything by default */
-        body { display: none; }
-    </style>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./adminstyles.css"> <!-- ✅ Admin-Specific Styles -->
+    <script type="module" src="../scripts.js"></script> <!-- ✅ Load Firebase Functions -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!-- ✅ FontAwesome for Icons -->
 </head>
-<body>
-    <h2>Welcome to the Admin Dashboard</h2>
-    <button id="logoutBtn">Logout</button>
+<body style="display: none;"> <!-- ✅ Hidden until authentication is verified -->
+
+    <div class="dashboard-container">
+        <h2>Welcome to the Admin Dashboard</h2>
+        <button id="logoutBtn" class="cta-outline">Logout</button>
+        <!-- ✅ Specials Management Section -->
+        <div class="dashboard-section">
+            <h3>Manage Specials</h3>
+            <div id="specialsContainer" class="specials-list"></div>
+            <button id="addSpecialBtn" class="add-button">
+                <i class="fa-plus"> </i>
+                Add New Special
+            </button>
+        </div>
+
+
+        <!-- ✅ Treatments Management Section -->
+        <div class="dashboard-section">
+            <h3>Manage Treatments</h3>
+            <div id="treatmentsContainer" class="treatments-list"></div>
+            <button id="addTreatmentBtn" class="add-button">
+                <i class="fa-plus"> </i>
+                Add New Treatment
+            </button>
+        </div>
+
+
+        <!-- ✅ Testimonials Management Section -->
+        <div class="dashboard-section">
+            <h3>Manage Testimonials</h3>
+            <div id="testimonialsContainer" class="testimonials-list"></div>
+            <button id="addTestimonialBtn" class="add-button">
+                <i class="fa-plus"> </i>
+                Add New Testimonial
+            </button>
+        </div>
+    </div>
 
     <script type="module">
-        import { loadConfig } from "../config.js";  // ✅ Import loadConfig function
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { loadSpecials, addSpecial } from "./specials.js";
+        import { loadTreatmentsAdmin, addTreatment } from "./treatments.js";
+        import { loadTestimonialsAdmin, addTestimonial } from "./testimonials.js";
+        import { logout, checkAuth } from "../scripts.js";
 
-        // ✅ Load Firebase Config Before Initializing
-        loadConfig().then(({ firebaseConfig, allowedEmail }) => {
-            console.log("✅ Firebase Config Loaded Successfully:", firebaseConfig);
+        document.getElementById("logoutBtn").addEventListener("click", logout);
+        document.getElementById("addSpecialBtn").addEventListener("click", addSpecial);
+        document.getElementById("addTreatmentBtn").addEventListener("click", addTreatment);
+        document.getElementById("addTestimonialBtn").addEventListener("click", addTestimonial);
 
-            // ✅ Initialize Firebase AFTER config.json is loaded
-            const app = initializeApp(firebaseConfig);
-            const auth = getAuth(app);
-
-            // ✅ Check if the user is logged in and authorized
-            onAuthStateChanged(auth, (user) => {
-                if (user && user.email === allowedEmail) {
-                    console.log("✅ Access granted:", user.email);
-                    document.body.style.display = "block";  // ✅ Show dashboard only after verification
-                } else {
-                    console.error("❌ Unauthorized access attempt or no user logged in.");
-                    window.location.href = "/admin/index.html";  // ✅ Redirect immediately
-                }
-            });
-
-            // ✅ Logout Button
-            document.getElementById("logoutBtn").addEventListener("click", () => {
-                signOut(auth).then(() => {
-                    window.location.href = "/admin/index.html";  // ✅ Redirect to login after logout
-                });
-            });
-        }).catch(error => {
-            console.error("❌ Failed to load Firebase Config:", error);
+        // ✅ Ensure user is authenticated before loading dashboard
+        checkAuth().then(() => {
+            loadSpecials();
+            loadTreatmentsAdmin();
+            document.body.style.display = "block"; // ✅ Show dashboard only after authentication
         });
     </script>
+
 </body>
 </html>

@@ -123,7 +123,7 @@ body {
     border-radius: 50%; /* Circular */
     object-fit: cover;
     margin-bottom: 20px;
-    border: 3px solid #e63946;
+    border: 3px solid #70452d;
 }
 
 /* ✅ Services Section */
@@ -180,7 +180,7 @@ body {
     height: auto;
     border-radius: 10px;
     object-fit: cover;
-    border: 3px solid #e63946;
+    border: 3px solid #70452d;
 }
 
 .testimonial p {
@@ -258,4 +258,110 @@ footer {
 
 .social-links a:hover {
     opacity: 0.8;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+/* ✅ Specials Section - Clean & Elegant */
+#specials {
+    background: #f5efe6; /* Soft beige */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#specials h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #5a3722;
+    margin-bottom: 15px;
+}
+
+#specials p {
+    font-size: 1.1rem;
+    color: #70452d;
+    margin-bottom: 30px;
+}
+
+/* Specials Grid */
+.specials-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Special Item - Modern Minimalist */
+.special-item {
+    background: white;
+    padding: 20px 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(90, 55, 34, 0.2); /* Light, subtle border */
+    text-align: center;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    max-width: 300px;
+}
+
+.special-item h3 {
+    font-size: 1.4rem;
+    color: #5a3722;
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+}
+
+.special-item p {
+    font-size: 1rem;
+    color: #5a3722;
+    margin-bottom: 10px;
+}
+
+/* Price Styling - Soft, Not Too Loud */
+.special-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #70452d;
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid rgba(90, 55, 34, 0.3);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover Effect - Soft Elevation */
+.special-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+    border-color: rgba(90, 55, 34, 0.4);
+}
+
+.special-price:hover {
+    background: #e6d7c3;
+    color: #5a3722;
+}
+
+/* ✅ Mobile Optimization */
+@media (max-width: 768px) {
+    #specials h2 {
+        font-size: 1.8rem;
+    }
+
+    #specials p {
+        font-size: 1rem;
+    }
+
+    .special-item {
+        max-width: 100%;
+    }
+
+    .special-item h3 {
+        font-size: 1.3rem;
+    }
+
+    .special-item p {
+        font-size: 0.95rem;
+    }
 }

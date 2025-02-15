@@ -4,48 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+
+    <link rel="stylesheet" href="../styles.css">
+    <script type="module" src="../scripts.js"></script> <!-- ✅ Load scripts.js -->
 </head>
 <body>
-    <h2>Admin Login</h2>
-    <button id="googleLoginBtn">Login with Google</button>
 
-    <!-- Firebase Authentication -->
+    <!-- ✅ Hero Section for Admin -->
+    <section class="hero">
+        <div class="logo-container fade-in">
+            <span class="sa">SA</span>
+            <p class="brand-name">Signature Aesthetics</p>
+        </div>
+        <div class="hero-buttons fade-in">
+            <button id="googleLoginBtn" class="cta-button" style="border-color: white;">Sign In</button>
+        </div>
+    </section>
+
     <script type="module">
-        import { loadConfig } from "../config.js";  // ✅ Import loadConfig instead of raw values
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
-
-        // ✅ Ensure Firebase Loads After `config.json` is Ready
-        loadConfig().then(({ firebaseConfig, allowedEmail }) => {
-            console.log("✅ Firebase Config Loaded Successfully:", firebaseConfig);
-
-            // ✅ Initialize Firebase AFTER config.json is loaded
-            const app = initializeApp(firebaseConfig);
-            const auth = getAuth(app);
-            const provider = new GoogleAuthProvider();
-
-            // ✅ Add Login Button Event AFTER Firebase is Ready
-            document.getElementById("googleLoginBtn").addEventListener("click", () => {
-                signInWithPopup(auth, provider)
-                    .then((result) => {
-                        const user = result.user;
-                        if (user.email === allowedEmail) {
-                            console.log("✅ Logged in as:", user.email);
-                            window.location.href = "/admin/dashboard.html";  // ✅ Redirect to admin page
-                        } else {
-                            console.error("❌ Unauthorized user:", user.email);
-                            alert("Access Denied: You are not authorized to log in.");
-                            signOut(auth);
-                            window.location.href = "index.html"; // ✅ Redirect to login page
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("❌ Login error:", error.message);
-                    });
-            });
-        }).catch(error => {
-            console.error("❌ Failed to load Firebase Config:", error);
-        });
+        import { loginWithGoogle } from "../scripts.js"; // ✅ Import only the login function
+        document.getElementById("googleLoginBtn").addEventListener("click", loginWithGoogle);
     </script>
+
 </body>
 </html>
