@@ -10,7 +10,7 @@ export const loadConfig = async () => {
             const response = await fetch("/config.json");
             if (!response.ok) throw new Error("Failed to fetch config.json");
             const config = await response.json();
-            
+
             firebaseConfig = {
                 apiKey: config.FIREBASE_API_KEY,
                 authDomain: config.FIREBASE_AUTH_DOMAIN,
@@ -26,26 +26,26 @@ export const loadConfig = async () => {
         }
     } else {
         try {
-            console.log("🔍 Fetching Firebase config from Cloud Function...");
+            console.log("🔍 Fetching Firebase config from Vercel API...");
 
-        // ✅ Use the new Firebase v2 function URL
-        const response = await fetch("https://getfirebaseconfig-omsptzezxa-uc.a.run.app");
+            // ✅ Fetch Firebase Config from Vercel API route
+            const response = await fetch("/api/config");
+            if (!response.ok) throw new Error("Failed to fetch Firebase config");
 
-        if (!response.ok) throw new Error("Failed to fetch Firebase config");
+            const config = await response.json();
 
-        const config = await response.json();
+            firebaseConfig = {
+                apiKey: config.firebaseConfig.apiKey,
+                authDomain: config.firebaseConfig.authDomain,
+                projectId: config.firebaseConfig.projectId,
+                storageBucket: config.firebaseConfig.storageBucket,
+                messagingSenderId: config.firebaseConfig.messagingSenderId,
+                appId: config.firebaseConfig.appId
+            };
 
-        const firebaseConfig = {
-            apiKey: config.apiKey,
-            authDomain: config.authDomain,
-            projectId: config.projectId,
-            storageBucket: config.storageBucket,
-            messagingSenderId: config.messagingSenderId,
-            appId: config.appId
-        };
+            allowedEmail = config.allowedEmail;
 
-        console.log("✅ Loaded Firebase config securely:", firebaseConfig);
-        return { firebaseConfig };
+            console.log("✅ Loaded Firebase config securely from Vercel:", firebaseConfig);
         } catch (error) {
             console.error("❌ Error loading Firebase config:", error);
         }
