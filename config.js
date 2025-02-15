@@ -50,7 +50,10 @@ export const loadConfig = async () => {
             };
 
             // Deserialize allowedEmails from environment variable in Vercel
-            allowedEmails = JSON.parse(process.env.ALLOWED_EMAILS || "[]");  // Default to an empty array if undefined
+            allowedEmails = [
+                config.ADMIN_EMAIL,  // Add the admin email
+                config.USER_EMAIL    // Add the second user email
+            ];
             
             console.log("✅ Loaded Firebase config securely from Vercel:", firebaseConfig);
         } catch (error) {
