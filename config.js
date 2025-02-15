@@ -27,12 +27,13 @@ export const loadConfig = async () => {
             };
             allowedEmails = allowedEmails;  // Fallback to an empty array
             console.log("✅ Loaded local Firebase config:", firebaseConfig);
+            console.log("✅ Loaded allowed emails:", allowedEmails);
         } catch (error) {
             console.error("❌ Error loading local config.json:", error);
         }
     } else {
         try {
-            console.log("🔍 Fetching Firebase config from Vercel API...");
+            console.log("🔍 Fetching Firebase config...");
 
             // ✅ Fetch Firebase Config from Vercel API route
             const response = await fetch("/api/config");
@@ -51,9 +52,6 @@ export const loadConfig = async () => {
 
             // Deserialize allowedEmails from environment variable in Vercel
            allowedEmails = config.allowedEmails;  // Default to an empty array if undefined
-            
-            console.log("✅ Loaded Firebase config securely from Vercel:", firebaseConfig);
-            console.log("✅ Allowed Emails from Vercel API:", allowedEmails);
         } catch (error) {
             console.error("❌ Error loading Firebase config:", error);
         }
