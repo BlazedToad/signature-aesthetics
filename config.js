@@ -27,25 +27,25 @@ export const loadConfig = async () => {
     } else {
         try {
             console.log("🔍 Fetching Firebase config from Cloud Function...");
-            
-            // ✅ Fetch Secure Config from Firebase Function
-            const response = await fetch("https://us-central1-signature-aesthetics.cloudfunctions.net/getFirebaseConfig");
 
-            if (!response.ok) throw new Error("Failed to fetch Firebase config");
+        // ✅ Use the new Firebase v2 function URL
+        const response = await fetch("https://getfirebaseconfig-omsptzezxa-uc.a.run.app");
 
-            const config = await response.json();
+        if (!response.ok) throw new Error("Failed to fetch Firebase config");
 
-            firebaseConfig = {
-                apiKey: config.apiKey,
-                authDomain: config.authDomain,
-                projectId: config.projectId,
-                storageBucket: config.storageBucket,
-                messagingSenderId: config.messagingSenderId,
-                appId: config.appId
-            };
-            allowedEmail = config.adminEmail;
+        const config = await response.json();
 
-            console.log("✅ Loaded Firebase config securely:", firebaseConfig);
+        const firebaseConfig = {
+            apiKey: config.apiKey,
+            authDomain: config.authDomain,
+            projectId: config.projectId,
+            storageBucket: config.storageBucket,
+            messagingSenderId: config.messagingSenderId,
+            appId: config.appId
+        };
+
+        console.log("✅ Loaded Firebase config securely:", firebaseConfig);
+        return { firebaseConfig };
         } catch (error) {
             console.error("❌ Error loading Firebase config:", error);
         }
