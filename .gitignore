@@ -1,1 +1,35 @@
 config.json
+
+# 🔹 Ignore Node.js dependencies
+node_modules/
+package-lock.json
+
+# 🔹 Ignore Firebase function build files
+functions/node_modules/
+functions/package-lock.json
+functions/.firebase/
+functions/lib/
+
+# 🔹 Ignore Firebase credentials & environment files
+.firebase/
+firestore.indexes.json
+firestore.rules
+storage.rules
+
+# 🔹 Ignore Vercel build files
+.vercel/
+.vercel_build_output/
+
+# 🔹 Ignore temporary files
+*.log
+.DS_Store
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# 🔹 Ignore Firebase Emulators (if using locally)
+firebase-debug.log
+firebase-debug-*
+firebase.json
